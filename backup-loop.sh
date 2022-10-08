@@ -435,14 +435,12 @@ retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli save-on
 
 
 while true; do
-  retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say \'Бэкап через 30 сек
-  sleep 20s
-  retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say \'Бэкап через 10 сек
-  sleep 10s
-  retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say \'Бэкап через 5 сек
+  retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say Резервное копирование через 30 сек. Немного полагает...
+  sleep 25s
+  retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say Резервное копирование через 5 сек. Немного полагает...
   sleep 5s
-  retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say \'Сохранение мира...
   if retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli save-off; then
+  retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say Сохранение мира...
     # No matter what we were doing, from now on if the script crashes
     # or gets shut down, we want to make sure saving is on
     trap 'retry 5 5s rcon-cli save-on' EXIT
@@ -457,7 +455,7 @@ while true; do
     "${BACKUP_METHOD}" backup
 
     retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli save-on
-    retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say \'Сохранение завершено!
+    retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say Резервное копирование завершено!
 
     if [[ $POST_BACKUP_SCRIPT_FILE ]]; then
       "$POST_BACKUP_SCRIPT_FILE"

@@ -2,7 +2,7 @@ FROM alpine AS builder
 
 # provided by buildx when using --platform
 # or manually using --build-arg TARGETARCH=amd64 --build-arg TARGETVARIANT=
-ARG TARGETARCH
+ARG TARGETARCH=amd64
 ARG TARGETVARIANT
 
 RUN mkdir -p /opt
