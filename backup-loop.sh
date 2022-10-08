@@ -435,7 +435,13 @@ retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli save-on
 
 
 while true; do
-
+  retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say \'Бэкап через 30 сек
+  sleep 20s
+  retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say \'Бэкап через 10 сек
+  sleep 10s
+  retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say \'Бэкап через 5 сек
+  sleep 5s
+  retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say \'Сохранение мира...
   if retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli save-off; then
     # No matter what we were doing, from now on if the script crashes
     # or gets shut down, we want to make sure saving is on
@@ -451,6 +457,7 @@ while true; do
     "${BACKUP_METHOD}" backup
 
     retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli save-on
+    retry ${RCON_RETRIES} ${RCON_RETRY_INTERVAL} rcon-cli say \'Сохранение завершено!
 
     if [[ $POST_BACKUP_SCRIPT_FILE ]]; then
       "$POST_BACKUP_SCRIPT_FILE"
